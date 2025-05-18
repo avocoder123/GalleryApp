@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
+
+import GalleryScreen from './components/GalleryScreen';
+import PictureViewerScreen from './components/PictureViewerScreen';
+import ProfileScreen from './components/ProfileScreen';
+
+const Tab = createBottomTabNavigator();
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'hotpink',
+    background: 'white',
+    text: 'black',
+  },
+};
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider theme={theme}>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="Gallery" component={GalleryScreen} />
+          <Tab.Screen name="Viewer" component={PictureViewerScreen} />
+          <Tab.Screen name="Profile" component={ProfileScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
